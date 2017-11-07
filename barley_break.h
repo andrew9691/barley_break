@@ -23,6 +23,21 @@ public:
 			mat[i].resize(4);
 	}
 
+	barley_break(std::vector<std::vector<int>> m)
+	{
+		mat.resize(4);
+		for (int i = 0; i < 4; i++)
+			mat[i].resize(4);
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				mat[i][j] = m[i][j];
+			}
+		}
+		//mat = m;
+	}
+
 	/*void random_fill()
 	{
 		int emp_pos_i = rand() % 3;
@@ -59,37 +74,37 @@ public:
 				{
 					move_down();
 					std::cout << "D ";
-					break;
 				}
 				else
-					break;
+					i--;
+				break;
 			case 1:
 				if (emp_pos_i != 0)
 				{
 					move_up();
 					std::cout << "U ";
-					break;
 				}
 				else
-					break;
+					i--;
+				break;
 			case 2:
 				if (emp_pos_j != 0)
 				{
 					move_left();
 					std::cout << "L ";
-					break;
 				}
 				else
-					break;
+					i--;
+				break;
 			default:
 				if (emp_pos_j != 3)
 				{
 					move_right();
 					std::cout << "R ";
-					break;
 				}
 				else
-					break;
+					i--;
+				break;
 			}
 		}
 		std::cout << std::endl;
@@ -166,7 +181,7 @@ public:
 	{
 		int res = 0;
 		std::vector<std::vector<int>> vji = { {1, 5, 9, 13}, { 2, 6, 10, 14 }, { 3, 7, 11, 15 }, { 4, 8, 12, 16 } };
-		mat[emp_pos_i][emp_pos_j] = 16; // Меняем значение пустой ячейки для корректности алгоритма ниже
+		mat[emp_pos_i][emp_pos_j] = 16;
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 3; j++)
 			{
@@ -201,15 +216,15 @@ public:
 		std::vector<char> possible_moves = std::vector<char>();
 		while (!solved)
 		{
-			//std::cout << deepness << " ";
+			std::cout << deepness << " ";
 			deepness = search(possible_moves, 0, deepness, '0');
 		}
+		std::cout << std::endl;
 	}
 
 	int search(std::vector<char> possible_moves, int cur_cost, int deepness, char last_move_from)
 	{
 		int h = heuristics();
-		//std::cout << "h = (" << h << ") ";
 		if (h == 0)
 		{
 			solved = true;
@@ -259,10 +274,7 @@ public:
 
 		int min = exceeded_tresholds[0];
 		for (int i = 1; i < exceeded_tresholds.size(); i++)
-		{
 			min = exceeded_tresholds[i] < min ? exceeded_tresholds[i] : min;
-
-		}
 
 		return min;
 	}
