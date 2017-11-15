@@ -28,14 +28,10 @@ public:
 		mat.resize(4);
 		for (int i = 0; i < 4; i++)
 			mat[i].resize(4);
+
 		for (int i = 0; i < 4; i++)
-		{
 			for (int j = 0; j < 4; j++)
-			{
 				mat[i][j] = m[i][j];
-			}
-		}
-		//mat = m;
 	}
 
 	/*void random_fill()
@@ -181,24 +177,11 @@ public:
 	{
 		int res = 0;
 		std::vector<std::vector<int>> vji = { {1, 5, 9, 13}, { 2, 6, 10, 14 }, { 3, 7, 11, 15 }, { 4, 8, 12, 16 } };
-		mat[emp_pos_i][emp_pos_j] = 16;
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 3; j++)
-			{
-				// Проверка по строкам
-				if (std::find(goal_mat[i].begin(), goal_mat[i].end(), mat[i][j]) != goal_mat[i].end())
-					for (int k = j + 1; k < 4; k++)
-						if (std::find(goal_mat[i].begin(), goal_mat[i].end(), mat[i][k]) != goal_mat[i].end() && mat[i][j] > mat[i][k])
-							res += 2;
-
-				// Проверка по столбцам
-				if (std::find(vji[i].begin(), vji[i].end(), mat[j][i]) != vji[i].end())
-					for (int k = j + 1; k < 4; k++)
-						if (std::find(vji[i].begin(), vji[i].end(), mat[k][i]) != vji[i].end() && mat[j][i] > mat[k][i])
-							res += 2;
-			}
-
-		mat[emp_pos_i][emp_pos_j] = 0;
+				for (int k = j + 1; k < 4; k++)
+					if ((mat[i][j] != 0 ? mat[i][j] : 15) > (mat[i][k] != 0 ? mat[i][k] : 15))
+						res += 2;
 
 		return res;
 	}
@@ -251,7 +234,7 @@ public:
 		{
 			move_left();
 			possible_moves.emplace_back('L');
-			exceeded_tresholds.push_back(search(possible_moves, cur_cost + 1, min_deep, 'R'));
+			exceeded_tresholds.push_back(search(possible_moves, cur_cost + 1, min_deep, 'R')); 
 			possible_moves.pop_back();
 			move_right();
 		}
