@@ -21,5 +21,5 @@ int main()
 	s.print_moves();
 	cout << endl;
 	s.print_res();
-	cout << endl << endl << "Time: " << (float)(end - start) / CLOCKS_PER_SEC << endl;
+	cout << endl << "Time: " << (float)(end - start) / CLOCKS_PER_SEC << endl;
 }
