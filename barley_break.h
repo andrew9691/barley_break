@@ -31,28 +31,16 @@ public:
 
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 4; j++)
+			{
 				mat[i][j] = m[i][j];
-	}
-
-	/*void random_fill()
-	{
-		int emp_pos_i = rand() % 3;
-		int emp_pos_j = rand() % 3;
-		this->emp_pos_i = emp_pos_i;
-		this->emp_pos_j = emp_pos_j;
-		this->mat[emp_pos_i][emp_pos_j] = 0;
-		std::vector<int> ints_in_mat = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-
-		for (int i = 0; i < 4; i++)
-			for (int j = 0; j < 4; j++)
-				if (!(i == emp_pos_i && j == emp_pos_j))
+				if (mat[i][j] == 0)
 				{
-					int r = rand() % ints_in_mat.size();
-					int x = ints_in_mat[r];
-					ints_in_mat.erase(ints_in_mat.begin() + r);
-					this->mat[i][j] = x;
+					emp_pos_i = i;
+					emp_pos_j = j;
 				}
-	}*/
+			}
+				
+	}
 
 	void solvable_random_fill(int permuts)
 	{
@@ -176,7 +164,6 @@ public:
 	int linear_conflict()
 	{
 		int res = 0;
-		std::vector<std::vector<int>> vji = { {1, 5, 9, 13}, { 2, 6, 10, 14 }, { 3, 7, 11, 15 }, { 4, 8, 12, 16 } };
 		for (int i = 0; i < 4; i++)
 			for (int j = 0; j < 3; j++)
 				for (int k = j + 1; k < 4; k++)
@@ -281,6 +268,8 @@ public:
 				move_down();
 			}
 		}
+
+		std::cout << "Moves amount: " << solution_moves.size() << std::endl << std::endl;
 
 		print();
 	}
